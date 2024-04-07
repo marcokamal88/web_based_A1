@@ -11,7 +11,7 @@
 <body>
     <?php include "header.php"; ?>
         <div id="register">
-            <form action="DB_Ops.php" method="post">
+            <form action="DB_Ops.php" method="post" enctype="multipart/form-data">
 
                 <h3>Create New Account</h3>
 

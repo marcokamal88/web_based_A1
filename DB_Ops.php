@@ -24,6 +24,13 @@ CREATE TABLE IF NOT EXISTS users (
 );
 ");
 
+include './upload.php';
+$user_image_name = upload_user_image();
+
+if($user_image_name){ /// successfully uploaded
+    echo $user_image_name;
+}
+
 /*
     $query = 'insert into users (fullName,userName,phone,birthdate,address,password,email,userImg) values(?,?,?,?,?,?,?,?);';
     $stmt=mysqli_prepare($conn, $query);
