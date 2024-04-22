@@ -12,8 +12,12 @@ include("DB_Ops.php");
             elseif($valid== 2){ redirect_back("error","wrong_upload");
                 return ;
             }
+            $conn=connectDB("localhost","root",'',"web_project");
             
-        $valid=insert(connectDB("localhost","root",'',"web_project"));
+            if ($conn==0){
+                redirect_back("error","wrong_connection");}
+            else{
+        $valid=insert($conn);
             
         if($valid==1){
             redirect_back("succes","successful_action");
@@ -27,5 +31,6 @@ include("DB_Ops.php");
     }
     
 }
+        }
 validation_error();
     
