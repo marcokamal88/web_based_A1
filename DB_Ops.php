@@ -1,14 +1,13 @@
-<?php 
+<?php
 
+use function PHPSTORM_META\expectedReturnValues;
 
+include("upload.php");
+function connectDB($hostname,$username,$password, $database) {
 
-$conn = mysqli_connect('localhost', 'root', '')
-or die ('No connection'. mysqli_error($conn));
+$conn = mysqli_connect($hostname, $username, $password) or die ('No connection'. mysqli_error($conn));
 
-mysqli_select_db($conn ,'web_project') or die ('db will not open'. mysqli_error($conn)); 
-
-
-// migrating users table if not exists
+mysqli_select_db($conn ,$database) or die ('db will not open'. mysqli_error($conn)); 
 mysqli_query($conn, "
 CREATE TABLE IF NOT EXISTS users (
     ID int(11) NOT NULL,
@@ -24,19 +23,30 @@ CREATE TABLE IF NOT EXISTS users (
 );
 ");
 
-include './upload.php';
-$user_image_name = upload_user_image();
-
-if($user_image_name){ /// successfully uploaded
-    echo $user_image_name;
+return $conn;
 }
+function insert($conn){
 
-/*
-    $query = 'insert into users (fullName,userName,phone,birthdate,address,password,email,userImg) values(?,?,?,?,?,?,?,?);';
-    $stmt=mysqli_prepare($conn, $query);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    $date = date("Y-m-d"); 
-        mysqli_stmt_bind_param($stmt, 'ssisssss', $_POST['fname'], $_POST['user'], $_POST['phone'], $date,$_POST['address'],$_POST['pwd'],$_POST['email'],$_POST['userimg']);
-    mysqli_stmt_execute($stmt);
-    
-    $result = mysqli_query($conn, $query) or die (''. mysqli_error($conn));*/
+    $query = "INSERT INTO `users`( `fullName`, `userName`, `phone`, `address`, `password`, `userimg`, `email`,
+    `birthdate`)
+    VALUES
+    ("."'".$_POST["fname"]."'".','."'".$_POST["user"]."'".','.$_POST["phone"].','."'".$_POST["address"]."'".','."'".$_POST["pwd"]."'".','."'".upload_user_image()."'".','."'".$_POST["email"]."'".','."'".$_POST["brithday"]."');";    
+    try {
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+            // Successfully inserted
+            return 1;
+        } else {
+            // Display general database error
+            return 0;
+        }
+    } catch (mysqli_sql_exception $e) {
+        // Check if the error is due to duplicate entry
+        return $e->getCode();
+    }
+
+}
+mysqli_close($conn);
+}

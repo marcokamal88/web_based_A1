@@ -7,11 +7,10 @@
     <title>Registertion</title>
     <link rel="stylesheet" href="header.css">
 </head>
-<!--  -->
+
 <body>
-    <?php include "header.php"; ?>
     <div id="register">
-        <form action="DB_Ops.php" method="post" enctype="multipart/form-data">
+        <form action="Controller.php" method="post" enctype="multipart/form-data">
             <h3>Create New Account</h3>
 
             <div><label for="email">email</label>
@@ -20,6 +19,9 @@
 
             <div><label for="user">username</label>
                 <input class="input" type="text" id="user" name="user" />
+                <span style="color: red;"> <?php  if(isset($_GET['error'])){if($_GET['error']=='worng_username'){
+                    echo"username must be unique";}
+                } ?></span>
             </div>
 
             <div><label for="fname">full name</label>
@@ -35,13 +37,21 @@
                 <input class="input" type="text" id="address" name="address" />
             </div>
             <div><label for="pwd">Password</label>
-                <input class="input" type="password"  name="pwd"  id="pwd" value="ppppp"/>
+                <input class="input" type="password" name="pwd" id="pwd" value="ppppp" />
             </div>
-            <div ><label for="conpwd">confirm Password</label>
-                <input class="input" type="password"  name="conpwd" id="conpwd" value="hhhhh"/>
+            <div><label for="conpwd">confirm Password</label>
+                <input class="input" type="password" name="conpwd" id="conpwd" value="hhhhh" />
             </div>
             <div><label for="userimg">image</label>
                 <input class="input" type="file" id="userimg" name="userimg" />
+                <span style="color: red;"> <?php if(isset($_GET['error'])){if($_GET['error']=='wrong_format'){
+                    echo"wrong format plz enter format photo like JPG,png,jpeg,gif";
+                } 
+                elseif($_GET['error']=='upload_failed'){echo "upload_failed";}
+                }?></span>
+                <span style="color:green;"><?php  if(isset($_GET['succes'])){if($_GET['succes']=='successful_action'){
+                    echo"the user regiterd succesfully";}
+                } ?></span>
             </div>
             <button id="btn" onclick="emptyFields()">Register</button>
             <!--  -->

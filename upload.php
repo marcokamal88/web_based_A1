@@ -9,14 +9,12 @@ function upload_user_image(){
         
         $error = false;
         
-        function redirect_back($error){
-            header("Location: {$_SERVER['HTTP_REFERER']}?error={$error}");
-        }
+
         
         // allow only images files
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
             $error = true;
-            redirect_back('wrong_format');
+            return 1;
         }
         
         
@@ -25,14 +23,8 @@ function upload_user_image(){
             if ($uploaded_successfully) {
                 return htmlspecialchars(basename( $_FILES[$input_name]["name"]));
             } else {
-                redirect_back('upload_failed');
+                return 2;
             }
         }
     }
 }
-
-
-
-
-
-
