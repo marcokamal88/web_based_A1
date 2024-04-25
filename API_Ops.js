@@ -1,5 +1,4 @@
-// import { ARR } from "./respons";
-const ARR = [
+const ARR = [ /// for testing
   "Matthias Schoenaerts",
   "AnnaSophia Robb",
   "Tanner Buchanan",
@@ -8,32 +7,79 @@ const ARR = [
   "Ian Somerhalder",
 ];
 var btn = document.getElementById("btn1");
+const birth = document.getElementById('Brithday')
+
+birth.onchange = function(e) {
+  if(e.target.value){
+    btn.removeAttribute('disabled')
+  }else{
+    btn.setAttribute('disabled', true)
+
+  }
+}
+
 const data = null;
 const xhr = new XMLHttpRequest();
 xhr.withCredentials = true;
 
+function appendActors(arr){
+
+  document.getElementById("btn_actors").innerHTML = ''
+
+  let toggle = document.createElement("div");
+  toggle.setAttribute("id", "actorsToggle")
+  let title = document.createTextNode("Actors Born On The Same Day");
+  toggle.append(title)
+  let sign = document.createElement("div");
+  sign.innerHTML = 'Hide'
+  toggle.append(sign)
+  document.getElementById("btn_actors").append(toggle)
+    
+  
+  toggle.addEventListener('click', function() {
+    
+    if(document.getElementById('actorsList').classList.contains('hide')){
+      sign.innerHTML = 'Hide'
+      document.getElementById('actorsList').classList.remove('hide')
+    }else{
+      document.getElementById('actorsList').classList.add('hide')
+      sign.innerHTML = 'Show'
+
+    }
+  })
+
+  let list = document.createElement("div");
+  list.setAttribute("id", "actorsList")
+
+  arr.forEach(function (item, index) {
+    let div = document.createElement("div");
+    div.setAttribute("class", "actorName")
+    let actorName = document.createTextNode(item?.nameText?.text || item);
+    div.appendChild(actorName);
+    list.appendChild(div);
+    
+  });
+
+  document.getElementById("btn_actors").append(list)
+
+}
+
 btn.addEventListener("click", function () {
-  // this 5 line for testing the actors names button
-  /*
-  let div = document.createElement("div");
-  div.className="actorName";
-  let actorName = document.createTextNode(ARR[0]);
-  div.appendChild(actorName);
-  document.getElementById("append").appendChild(div);
-  */
-  const [year, month, day] = birth.split("-");
-    // var apiUrl = `https://imdb188.p.rapidapi.com/api/v1/getBornOn?month=${month}&day=${day}`;
+ 
+  /// for testing without api
+  /// appendActors(ARR)
+
+  btn.textContent = "Wait" 
+  
+  const [year, month, day] = birth.value.split("-");
+  var apiUrl = `https://imdb188.p.rapidapi.com/api/v1/getBornOn?month=${month}&day=${day}`;
   xhr.addEventListener("readystatechange", function () {
     if (this.readyState === this.DONE) {
       var res = JSON.parse(this.responseText);
       if (res.data && res.data.list) {
-        res.data.list.forEach(function (item, index) {
-          index + 1;
-          let div = document.createElement("div");
-          let actorName = document.createTextNode(item.nameText.text);
-          div.appendChild(actorName);
-          document.getElementById("#append").appendChild(div);
-        });
+        appendActors(res.data.list)
+        btn.textContent = "Actors"
+
       } else {
         console.error("request not found");
       }

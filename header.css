@@ -62,17 +62,23 @@ a.link {
   font-size: 28px;
   text-align: center;
 }
-
+form > div{
+  margin-bottom: 20px;
+}
+form > div span{
+  margin-top: 5px;
+  display: block;
+}
 .input {
   height: 35px;
-  margin: 10px 0px;
   width: 100%;
   border-radius: 7px;
   padding: 0px 5px;
 }
 label {
   width: 80%;
-  margin: 2px 0 0 0px;
+  margin-bottom: 10px;
+  display: block;
   text-transform: capitalize;
 }
 #btn {
@@ -126,7 +132,7 @@ footer {
   background-color: #fff;
   transition: 0.3s ease;
 }
-#btn1:hover {
+#btn1:not(:disabled):hover {
   background-color: black;
   color: #fff;
 }
@@ -134,7 +140,28 @@ footer {
   border: 2px solid rgb(0, 0, 0);
   border-radius: 3px;
   display: inline-grid;
-  margin: 5px 5px;
-  padding: 2px 3px ;
+  padding: 10px;
   color: black;
+  width: calc(100% / 3 - 10px);
+}
+
+#btn_actors{
+    margin-top: 15px;
+  }
+
+#actorsToggle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+#actorsList{
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+#actorsList.hide{
+  display: none;
 }

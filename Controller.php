@@ -1,36 +1,44 @@
 <?php
-include("DB_Ops.php");
-        function redirect_back($attrubite,$value){
-            header("Location: {$_SERVER['HTTP_REFERER']}?".$attrubite."={$value}");
+    include("DB_Ops.php");
+    include("upload.php");
+
+
+    function redirect_back($attrubite,$value){
+        $prev_url = $_SERVER['HTTP_REFERER'];
+        $rev_without_query = explode("?", $prev_url)[0];
+        header("Location: {$rev_without_query}?".$attrubite."={$value}");
+    }
+
+    function validation_error(){
+
+        $valid=upload_user_image(); /// if success upload will hold uploaded file name
+        if($valid==1){
+            redirect_back("upload_error","wrong_format");
+            return ;
         }
-        function validation_error(){
-            $valid=upload_user_image();
-            if($valid==1){redirect_back("error","wrong_format");
-                return ;
-            
-            }
-            elseif($valid== 2){ redirect_back("error","wrong_upload");
-                return ;
-            }
-            $conn=connectDB("localhost","root",'',"web_project");
-            
-            if ($conn==0){
-                redirect_back("error","wrong_connection");}
-            else{
-        $valid=insert($conn);
+        elseif($valid== 2){ 
+            redirect_back("upload_error","wrong_upload");
+            return ;
+        }
+
+    
+        $valid=insert($valid);
             
         if($valid==1){
             redirect_back("succes","successful_action");
+            return ;
         }
-        elseif($valid==1062){
-            redirect_back("error","worng_username");
+        else if($valid==1062){
+            redirect_back("worng_username","true");
+            return ;
         }
-        else
-            {
-            redirect_back("error","error_in_DB");
+        else{
+            redirect_back("error_in_DB","true");
+            return ;
+        }
+        
+        
     }
-    
-}
-        }
-validation_error();
+
+    validation_error();
     

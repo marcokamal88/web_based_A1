@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <?php include "header.php"; ?>
+
     <div id="register">
         <form action="Controller.php" method="post" enctype="multipart/form-data">
             <h3>Create New Account</h3>
@@ -19,11 +21,10 @@
 
             <div><label for="user">username</label>
                 <input class="input" type="text" id="user" name="user" />
-                <span style="color: red;"> <?php if (isset($_GET['error'])) {
-                                                if ($_GET['error'] == 'worng_username') {
-                                                    echo "username must be unique";
-                                                }
-                                            } ?></span>
+                 <?php if (isset($_GET['worng_username'])) {
+                        echo '<span style="color: red;">username must be unique</span>';
+                    
+                } ?>
             </div>
 
             <div><label for="fname">full name</label>
@@ -37,38 +38,45 @@
                 <input class="input" type="text" id="address" name="address" />
             </div>
             <div><label for="pwd">Password</label>
-                <input class="input" type="password" name="pwd" id="pwd" value="ppppp" />
+                <input class="input" type="password" name="pwd" id="pwd" />
             </div>
             <div><label for="conpwd">confirm Password</label>
-                <input class="input" type="password" name="conpwd" id="conpwd" value="hhhhh" />
+                <input class="input" type="password" name="conpwd" id="conpwd" />
             </div>
             <div><label for="userimg">image</label>
                 <input class="input" type="file" id="userimg" name="userimg" />
-                <span style="color: red;"> <?php if (isset($_GET['error'])) {
-                                                if ($_GET['error'] == 'wrong_format') {
-                                                    echo "wrong format plz enter format photo like JPG,png,jpeg,gif";
-                                                } elseif ($_GET['error'] == 'upload_failed') {
-                                                    echo "upload_failed";
-                                                }
-                                            } ?></span>
-                <span style="color:green;"><?php if (isset($_GET['succes'])) {
-                                                if ($_GET['succes'] == 'successful_action') {
-                                                    echo "the user regiterd succesfully";
-                                                }
-                                            } ?></span>
+                 <?php if (isset($_GET['upload_error'])) {
+                        if ($_GET['upload_error'] == 'wrong_format') {
+                            echo '<span style="color: red;">wrong format plz enter format photo like JPG,png,jpeg,gif</span>';
+                        } elseif ($_GET['upload_error'] == 'upload_failed') {
+                            echo '<span style="color: red;">upload failed</span>';
+                        }
+                    } ?>
+               
             </div>
-            <div >
-                <div id="append">
+            <div>
+                <div >
                     <label for="Brithday">Brithday</label>
                     <div class="birth">
                         <input class="input" type="date" id="Brithday" name="brithday" />
-                        <button type="button" id="btn1" >Actors names </button>
+                        <button type="button" id="btn1" disabled >Actors </button>
                     </div>
                 </div>
                 <div id="btn_actors">
                 </div>
             </div>
-            <button id="btn" onclick="emptyFields()">Register</button>
+
+            <?php if (isset($_GET['error_in_DB'])) {
+                    echo '<span style="color: red;">Something went wrong</span>';
+                
+            } ?>
+
+            <?php if (isset($_GET['succes'])) {
+                    echo '<span style="color:green;">the user regiterd succesfully</span>';
+                
+            } ?>
+
+            <button id="btn">Register</button>
             <!--  -->
         </form>
     </div>

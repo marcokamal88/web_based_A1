@@ -1,7 +1,4 @@
-<html>
 
-
-<body>
     <header>
         <nav>
             <img id="img1" src="img/logo.png.webp" alt="Logo" />
@@ -17,6 +14,3 @@
             </div>
         </nav>
     </header>
-</body>
-
-</html>
