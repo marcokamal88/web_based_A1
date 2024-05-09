@@ -48,7 +48,7 @@ class customerController extends Controller
 
         $customer->save();
 
-        return redirect()->route('customers.index')->with('success', 'customer Added successfully.');
+        return redirect()->route('customers.register')->with('success', 'customer Added successfully.');
 
 
     }
