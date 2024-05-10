@@ -12,7 +12,7 @@ class customerController extends Controller
      */
     public function index()
     {
-        //
+        return view('index');
     }
 
     /**
@@ -20,7 +20,7 @@ class customerController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('register');
 
     }
 
@@ -31,24 +31,26 @@ class customerController extends Controller
     {
         $request->validate([
             'userName'          =>  'required|unique:customers',
-            'customer_email'         =>  'required|email|unique:customers',
-            'customer_image'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
+            'email'         =>  'required|email|unique:customers',
+            'userImg'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
         ]);
 
-        $file_name = time() . '.' . request()->customer_image->getClientOriginalExtension();
+        $file_name = time() . '.' . request()->userimg->getClientOriginalExtension();
 
         request()->customer_image->move(public_path('images'), $file_name);
 
         $customer = new customer;
-
-        $customer->customer_name = $request->customer_name;
-        $customer->customer_email = $request->customer_email;
-        $customer->customer_gender = $request->customer_gender;
-        $customer->customer_image = $file_name;
-
+        $customer->username=$request->input('user');
+        $customer->fullname = $request->input('fname');
+        $customer->password = $request->input('pwd');
+        $customer->addres=$request->input('address');
+        $customer->numberPhone=$request->input('phone');
+        $customer->brithdate=$request->input('Brithday');
+        $customer->email = $request->input('email');
+        $customer->userimg = $file_name;
         $customer->save();
 
-        return redirect()->route('customers.register')->with('success', 'customer Added successfully.');
+        return redirect()->route('customer.index')->with('success', 'customer Added successfully.');
 
 
     }
