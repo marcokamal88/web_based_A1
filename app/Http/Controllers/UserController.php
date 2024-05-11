@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class customerController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('index');
+
     }
 
     /**
@@ -29,30 +29,31 @@ class customerController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'userName'          =>  'required|unique:customers',
-            'email'         =>  'required|email|unique:customers',
-            'userImg'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
+            'userName'          =>  'required|unique:users',
+            'email'         =>  'required|email|unique:users',
+            'userImg'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
 
-        $file_name = time() . '.' . request()->userimg->getClientOriginalExtension();
+        $file = $request->file('userImg');
 
-        request()->customer_image->move(public_path('images'), $file_name);
+        $file_name = time() . '.' . $file->getClientOriginalExtension();
 
-        $customer = new customer;
-        $customer->username=$request->input('user');
-        $customer->fullname = $request->input('fname');
+        $file->move(public_path('images'), $file_name);
+
+        $customer = new User();
+        $customer->userName=$request->input('userName');
+        $customer->fullName = $request->input('fname');
         $customer->password = $request->input('pwd');
-        $customer->addres=$request->input('address');
+        $customer->address=$request->input('address');
         $customer->numberPhone=$request->input('phone');
-        $customer->brithdate=$request->input('Brithday');
+        $customer->brithdate=$request->input('brithday');
         $customer->email = $request->input('email');
-        $customer->userimg = $file_name;
+        $customer->userImg = $file_name;
         $customer->save();
 
-        return redirect()->route('customer.index')->with('success', 'customer Added successfully.');
-
-
+        return redirect()->back()->with('success', 'customer Added successfully.');
     }
 
     /**
