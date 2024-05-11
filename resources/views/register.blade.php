@@ -46,10 +46,8 @@
                     <input class="input" type="text" id="phone" name="phone" />
 
                 </div>
-                <div><label for="Brithday">Brithday</label>
-                    <input class="input" type="date" id="Brithday" name="brithday" />
-
-                </div>
+               
+                
                 <div><label for="address">Address</label>
                     <input class="input" type="text" id="address" name="address" />
 
@@ -77,6 +75,18 @@
                  
                 </div>
 
+                <div>
+                    <div >
+                        <label for="Brithday">Brithday</label>
+                        <div class="birth">
+                            <input class="input" type="date" id="Brithday" name="brithday" />
+                            <button type="button" id="btn1" disabled >Actors </button>
+                        </div>
+                    </div>
+                    <div id="btn_actors">
+                    </div>
+                </div>
+
                 <?php if(session('success')){
                     echo '<span style="color:green;">' . session('success') . '</span>';
                 }?>
@@ -86,6 +96,7 @@
             </form>
         </div>
         <script src="\js\validation.js"></script>
+        <script src="\js\API_Ops.js"></script>
 
     </main>
 
