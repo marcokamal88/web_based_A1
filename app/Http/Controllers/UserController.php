@@ -53,7 +53,7 @@ class UserController extends Controller
         $customer->userImg = $file_name;
         $customer->save();
 
-        return redirect()->back()->with('success', 'customer Added successfully.');
+        return redirect()->back()->with('success', 'Registered successfully!');
     }
 
     /**

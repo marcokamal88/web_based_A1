@@ -61,7 +61,8 @@
                 <div><label for="conpwd">confirm Password</label>
                     <input class="input" type="password" name="conpwd" id="conpwd" />
                 </div>
-                <div><label for="userimg">image</label>
+                <div>
+                    <label for="userimg">image</label>
                     <input class="input" type="file" id="userimg" name="userImg" />
 
                     <span style="color: red;"> 
@@ -73,12 +74,13 @@
                     }
                     ?>
                     </span>
-                    <span style="color:green;">
-                        <?php if(session('success')){
-                            echo "Registered successfully!";
-                        }?>
-                    </span>
+                 
                 </div>
+
+                <?php if(session('success')){
+                    echo '<span style="color:green;">' . session('success') . '</span>';
+                }?>
+
                 <button id="btn">Register</button>
                 <!--  -->
             </form>
