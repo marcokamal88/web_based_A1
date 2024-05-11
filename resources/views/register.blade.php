@@ -73,9 +73,11 @@
                     }
                     ?>
                     </span>
-                    <span style="color:green;"><?php  if(isset($_GET['succes'])){if($_GET['succes']=='successful_action'){
-                        echo"the user regiterd succesfully";}
-                    } ?></span>
+                    <span style="color:green;">
+                        <?php if(session('success')){
+                            echo "Registered successfully!";
+                        }?>
+                    </span>
                 </div>
                 <button id="btn">Register</button>
                 <!--  -->
