@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\newuser;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -52,6 +53,7 @@ class UserController extends Controller
         $customer->email = $request->input('email');
         $customer->userImg = $file_name;
         $customer->save();
+        $customer->notify(new newuser($customer));
 
         return redirect()->back()->with('success', 'Registered successfully!');
     }
@@ -59,7 +61,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(customer $customer)
+    public function show(User $customer)
     {
         //
     }
@@ -67,7 +69,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(customer $customer)
+    public function edit(User $customer)
     {
         //
     }
@@ -75,7 +77,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, customer $customer)
+    public function update(Request $request,User $customer)
     {
         //
     }
@@ -83,7 +85,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(customer $customer)
+    public function destroy(User $customer)
     {
         //
     }
