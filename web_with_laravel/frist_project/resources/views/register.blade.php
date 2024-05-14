@@ -1,82 +1,68 @@
 @extends('master')
-@section("title","register")
-
 
 @section('content')
 
-@if($errors->any())
-
-<div class="alert alert-danger">
-    <ul>
-        @foreach($errors->all() as $error)
-
-        <li>{{ $error }}</li>
-
-        @endforeach
-    </ul>
-</div>
-
-@endif
-
 <main>
     <div id="register">
-        <form action="{{ route('customer.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('customer.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <h3>Create New Account</h3>
 
-            <div><label for="email">email</label>
-                <input class="input" type="email" id="email" name="email" />
+            <div>
+                <label for="email">Email</label>
+                <input class="input" type="email" id="email" name="email" value="{{ old('email') }}" />
+                @error('email')
+                <span style="color: red;">{{ $message }}</span>
+                @enderror
             </div>
 
-            <div><label for="user">username</label>
-                <input class="input" type="text" id="user" name="user" />
-
-                <span style="color: red;"> <?php  if(isset($_GET['error'])){if($_GET['error']=='worng_username'){
-                    echo"username must be unique";}
-                } ?></span>
+            <div>
+                <label for="userName">Username</label>
+                <input class="input" type="text" id="userName" name="userName" value="{{ old('userName') }}" />
+                @error('userName')
+                <span style="color: red;">{{ $message }}</span>
+                @enderror
             </div>
 
-            <div><label for="fname">full name</label>
-                <input class="input" type="text" id="fname" name="fname" />
+            <div>
+                <label for="fname">Full Name</label>
+                <input class="input" type="text" id="fname" name="fname" value="{{ old('fname') }}" />
+            </div>
 
+            <div>
+                <label for="phone">Phone</label>
+                <input class="input" type="text" id="phone" name="phone" value="{{ old('phone') }}" />
             </div>
-            <div><label for="phone">phone</label>
-                <input class="input" type="text" id="phone" name="phone" />
 
+            <div>
+                <label for="brithday">Birthdate</label>
+                <input class="input" type="date" id="brithday" name="brithday" value="{{ old('brithday') }}" />
             </div>
-            <div><label for="Brithday">Brithday</label>
-                <input class="input" type="date" id="Brithday" name="brithday" />
 
+            <div>
+                <label for="address">Address</label>
+                <input class="input" type="text" id="address" name="address" value="{{ old('address') }}" />
             </div>
-            <div><label for="address">Address</label>
-                <input class="input" type="text" id="address" name="address" />
 
+            <div>
+                <label for="pwd">Password</label>
+                <input class="input" type="password" name="pwd" id="pwd" />
             </div>
-            <div><label for="pwd">Password</label>
-                <input class="input" type="password" name="pwd" id="pwd" value="ppppp" />
 
+            <div>
+                <label for="conpwd">Confirm Password</label>
+                <input class="input" type="password" name="conpwd" id="conpwd" />
             </div>
-            <div><label for="conpwd">confirm Password</label>
-                <input class="input" type="password" name="conpwd" id="conpwd" value="hhhhh" />
-            </div>
-            <div><label for="userimg">image</label>
+
+            <div>
+                <label for="userimg">Image</label>
                 <input class="input" type="file" id="userimg" name="userimg" />
-
-                <span style="color: red;"> <?php if(isset($_GET['error'])){if($_GET['error']=='wrong_format'){
-                    echo"wrong format plz enter format photo like JPG,png,jpeg,gif";
-                }
-                elseif($_GET['error']=='upload_failed'){echo "upload_failed";}
-                }?></span>
-                <span style="color:green;"><?php  if(isset($_GET['succes'])){if($_GET['succes']=='successful_action'){
-                    echo"the user regiterd succesfully";}
-                } ?></span>
             </div>
+
             <button id="btn">Register</button>
-            <!--  -->
         </form>
     </div>
-    <script src="\js\validation.js"></script>
-
 </main>
 @endsection('content')
-<link rel="stylesheet" href=" \css\header.css">
+
+<link rel="stylesheet" href="\css\header.css">

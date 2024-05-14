@@ -9,7 +9,14 @@ class customerController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+      */
+    // use App\Validation\UserValidation;
+    // protected $UserValidation;
+
+    //  public function __constructor(UserValidation $UserValidation){
+    //     $this->UserValidation          = $UserValidation;
+
+    //  } 
     public function index()
     {
         return view('index');
@@ -29,31 +36,41 @@ class customerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'userName'          =>  'required|unique:customers',
-            'email'         =>  'required|email|unique:customers',
-            'userImg'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
+        $validator = $request->validate([
+            'userName' => 'required|unique:customers',
+            'email' => 'required|email|unique:customers',
+            'userimg' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ], [
+            'userName.required' => 'The username field is required.',
+            'userName.unique' => 'This username is already taken. Please choose a different one.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email is already registered. Please use a different email.',
+            'userimg.required' => 'Please upload an image.',
+            'userimg.image' => 'The file must be an image.',
+            'userimg.mimes' => 'The image must be a file of type: jpg, png, jpeg, gif, svg.',
+            'userimg.max' => 'The image may not be greater than 2048 kilobytes.',
         ]);
-
+        
+    
         $file_name = time() . '.' . request()->userimg->getClientOriginalExtension();
-
-        request()->customer_image->move(public_path('images'), $file_name);
-
+    
+        $request->userimg->move(public_path('images'), $file_name);
+    
         $customer = new customer;
-        $customer->username=$request->input('user');
+        $customer->userName = $request->input('userName');
         $customer->fullname = $request->input('fname');
         $customer->password = $request->input('pwd');
-        $customer->addres=$request->input('address');
-        $customer->numberPhone=$request->input('phone');
-        $customer->brithdate=$request->input('Brithday');
+        $customer->address = $request->input('address');
+        $customer->numberPhone = $request->input('phone');
+        $customer->brithdate = $request->input('brithday');
         $customer->email = $request->input('email');
         $customer->userimg = $file_name;
         $customer->save();
-
-        return redirect()->route('customer.index')->with('success', 'customer Added successfully.');
-
-
+    
+        return redirect()->route('customer.index')->with('success', 'Customer added successfully.');
     }
+    
 
     /**
      * Display the specified resource.
