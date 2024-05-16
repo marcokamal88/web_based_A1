@@ -1,4 +1,3 @@
-inputs = document.getElementsByTagName("form")[0];
 const fullName = document.getElementById("fname");
 const userName = document.getElementById("user");
 const birthdate = document.getElementById("Brithday");
@@ -14,7 +13,6 @@ const emailRegex = /^\S+@\S+\.\S+$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&^])[A-Za-z\d@.#$!%*?&]{8,15}$/;
 const phoneRegex = /^(01)[0-9]{9}$/;
 
-// console.log(inputs);
 function createError(errorMessage, index) {
   const node = document.createElement("span");
   node.className = "error";
