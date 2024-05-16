@@ -12,16 +12,15 @@
     <header>
         <nav>
             <img id="img1" src="img/logo.png.webp" alt="Logo" />
-            <ul id="menu">
-                <li class="item"><a class="link" href="#">Home</a></li>
-                <li class="item"><a class="link" href="#">Blog</a></li>
-                <li class="item"><a class="link" href="#">Pages</a></li>
-                <li class="item"><a class="link" href="#">contact</a></li>
-            </ul>
-            <div class="item">
-                <a class="link" href="#">register</a>
-                <a class="link" href="#">login</a>
-            </div>
+
+            <select onchange="location = this.value;">
+                <option value="{{ route('/', ['lang' => 'en']) }}" @if(app()->getLocale() == 'en')
+                    selected @endif>English</option>
+                <option value="{{ route('/', ['lang' => 'ar']) }}" @if(app()->getLocale() == 'ar')
+                    selected @endif>arabic</option>
+                <!-- Add more language options as needed... -->
+            </select>
+
         </nav>
     </header>
     @yield('content')

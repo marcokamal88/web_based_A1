@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class SubmitFormTest extends TestCase
+class SubmitArFormTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -15,16 +15,16 @@ class SubmitFormTest extends TestCase
     public function test_example(): void
     {
 
-        $response = $this->from('/en')->followingRedirects()
+        $response = $this->from('/ar')->followingRedirects()
             ->json('POST', '/store', [
-                "email" => "marct3eeee33rrr33est3o@gmail.com",
-                'userName' => 'mar4444t4rr4estco123',
+                "email" => "marct333rrr33est3o@gmail.com",
+                'userName' => 'mart4rr4estco123',
                 'fname' => 'marco kamal',
                 'pwd' => "marcoss17228",
                 'address' => '15 makka',
                 'brithday' => "2024-05-30",
                 'phone' => '01202792325'
             ]);
-        $response->assertSee('Registered Successfully!');
+        $response->assertSee('تم الانشاء بنجاح');
     }
 }
