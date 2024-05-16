@@ -35,7 +35,18 @@ class UserController extends Controller
             'userName'          =>  'required|unique:users',
             'email'         =>  'required|email|unique:users',
             'userImg'         =>  'required|image|mimes:jpg,png,jpeg,gif,svg'
-        ]);
+        ],[
+            'userName.required' => 'The username field is required.',
+            'userName.unique' => 'This username is already taken. Please choose a different one.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email is already registered. Please use a different email.',
+            'userimg.required' => 'Please upload an image.',
+            'userimg.image' => 'The file must be an image.',
+            'userimg.mimes' => 'The image must be a file of type: jpg, png, jpeg, gif, svg.',
+            'userimg.max' => 'The image may not be greater than 2048 kilobytes.',
+        ])
+        ;
 
         $file = $request->file('userImg');
 
