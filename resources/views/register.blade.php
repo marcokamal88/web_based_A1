@@ -4,100 +4,95 @@
 
 @section('content')
 
-    @if($errors->any())
+@if($errors->any())
 
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
 
-                <li>{{ $error }}</li>
+        <li>{{ $error }}</li>
 
-                @endforeach
-            </ul>
-        </div>
+        @endforeach
+    </ul>
+</div>
 
-    @endif
+@endif
 
-    <main>
-        <div id="register">
-            <form action="/store" method="post" enctype="multipart/form-data">
-                @csrf
-                <h3>Create New Account</h3>
+<main>
+    <div id="register">
+        <form action="/store" method="post" enctype="multipart/form-data">
+            @csrf
+            <h3>@lang("content.create_Acc")</h3>
+            <div>
+                <label for="email">@lang("content.email")</label>
+                <input class="input" type="email" id="email" name="email" />
+            </div>
 
-                <div><label for="email">email</label>
-                    <input class="input" type="email" id="email" name="email" />
-                </div>
+            <div>
+                <label for="user">@lang("content.username")</label>
+                <input class="input" type="text" id="user" name="userName" />
 
-                <div><label for="user">username</label>
-                    <input class="input" type="text" id="user" name="userName" />
+                <span style="color: red;">
 
-                    <span style="color: red;"> 
-                        <?php  if(isset($_GET['error'])){if($_GET['error']=='worng_username'){
-                            echo"username must be unique";}
-                        } ?>
-                    </span>
-                </div>
+                </span>
+            </div>
 
-                <div><label for="fname">full name</label>
-                    <input class="input" type="text" id="fname" name="fname" />
+            <div>
+                <label for="fname">@lang("content.full_name")</label>
+                <input class="input" type="text" id="fname" name="fname" />
+            </div>
 
-                </div>
-                <div><label for="phone">phone</label>
-                    <input class="input" type="text" id="phone" name="phone" />
+            <div>
+                <label for="phone">@lang("content.phone")</label>
+                <input class="input" type="text" id="phone" name="phone" />
+            </div>
 
-                </div>
-               
-                
-                <div><label for="address">Address</label>
-                    <input class="input" type="text" id="address" name="address" />
+            <div>
+                <label for="address">@lang("content.address")</label>
+                <input class="input" type="text" id="address" name="address" />
+            </div>
 
-                </div>
-                <div><label for="pwd">Password</label>
-                    <input class="input" type="password" name="pwd" id="pwd" />
+            <div>
+                <label for="pwd">@lang("content.password")</label>
+                <input class="input" type="password" name="pwd" id="pwd" />
+            </div>
 
-                </div>
-                <div><label for="conpwd">confirm Password</label>
-                    <input class="input" type="password" name="conpwd" id="conpwd" />
-                </div>
+            <div>
+                <label for="conpwd">@lang("content.confirm_password")</label>
+                <input class="input" type="password" name="conpwd" id="conpwd" />
+            </div>
+
+            <div>
+                <label for="userimg">@lang("content.image")</label>
+                <input class="input" type="file" id="userimg" name="userImg" />
+
+                <span style="color: red;">
+
+
+                </span>
+            </div>
+
+            <div>
                 <div>
-                    <label for="userimg">image</label>
-                    <input class="input" type="file" id="userimg" name="userImg" />
-
-                    <span style="color: red;"> 
-                    <?php if(isset($_GET['error'])){
-                        if($_GET['error']=='wrong_format'){
-                            echo"wrong format plz enter format photo like JPG,png,jpeg,gif";
-                        }
-                        elseif($_GET['error']=='upload_failed'){echo "upload_failed";}
-                    }
-                    ?>
-                    </span>
-                 
-                </div>
-
-                <div>
-                    <div >
-                        <label for="Brithday">Brithday</label>
-                        <div class="birth">
-                            <input class="input" type="date" id="Brithday" name="brithday" />
-                            <button type="button" id="btn1" disabled >Actors </button>
-                        </div>
-                    </div>
-                    <div id="btn_actors">
+                    <label for="Brithday">@lang("content.birthday")</label>
+                    <div class="birth">
+                        <input class="input" type="date" id="Brithday" name="brithday" />
+                        <button type="button" id="btn1" disabled>@lang("content.actors_button")</button>
                     </div>
                 </div>
+                <div id="btn_actors">
+                </div>
+            </div>
 
-                <?php if(session('success')){
-                    echo '<span style="color:green;">' . session('success') . '</span>';
-                }?>
 
-                <button id="btn">Register</button>
-                <!--  -->
-            </form>
-        </div>
-        <script src="\js\validation.js"></script>
-        <script src="\js\API_Ops.js"></script>
+            <button id="btn">@lang("content.register_button")</button>
 
-    </main>
+            <!--  -->
+        </form>
+    </div>
+    <script src="\js\validation.js"></script>
+    <script src="\js\API_Ops.js"></script>
+
+</main>
 
 @endsection('content')

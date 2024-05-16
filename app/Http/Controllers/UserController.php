@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Notifications\newuser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 
 class UserController extends Controller
 {
@@ -19,8 +22,10 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($lang)
     {
+        App::setLocale($lang);
+
         return view('register');
 
     }
@@ -57,6 +62,7 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Registered successfully!');
     }
+
 
     /**
      * Display the specified resource.
