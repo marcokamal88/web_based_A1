@@ -42,7 +42,7 @@ registerButton.addEventListener("click", function (event) {
     address,
     password,
     conPassword,
-    
+
     img,
     birthdate,
   ];
@@ -62,14 +62,16 @@ registerButton.addEventListener("click", function (event) {
       createError('Please enter a vaild email address*',index);
       isValid = false;
       changeBorderColor(field, false);
-    } else if (field == password && !passwordRegex.test(value)) {
-      createError(
-        "Password must be at least 8 characters with at least 1 number and 1 special character*",
+    }
+    else if (field == password && !passwordRegex.test(value)) {
+       createError(
+         "Password must be at least 8 characters with at least 1 number and 1 special character*",
         index
       );
       isValid = false;
       changeBorderColor(field, false);
-    } else if (field === conPassword && value !== password.value) {
+    }
+    else if (field === conPassword && value !== password.value) {
       createError("Passwords do not match*", index);
       isValid = false;
       changeBorderColor(field, false);

@@ -4,19 +4,8 @@
 
 @section('content')
 
-@if($errors->any())
 
-<div class="alert alert-danger">
-    <ul>
-        @foreach($errors->all() as $error)
 
-        <li>{{ $error }}</li>
-
-        @endforeach
-    </ul>
-</div>
-
-@endif
 
 <main>
     <div id="register">
@@ -26,15 +15,18 @@
             <div>
                 <label for="email">@lang("content.email")</label>
                 <input class="input" type="email" id="email" name="email" />
+                @error('email')
+                <span style="color: red;">{{ $message }}</span>
+                @enderror
             </div>
 
             <div>
                 <label for="user">@lang("content.username")</label>
                 <input class="input" type="text" id="user" name="userName" />
+                @error('userName')
+                <span style="color: red;">{{ $message }}</span>
+                @enderror
 
-                <span style="color: red;">
-
-                </span>
             </div>
 
             <div>
@@ -66,10 +58,9 @@
                 <label for="userimg">@lang("content.image")</label>
                 <input class="input" type="file" id="userimg" name="userImg" />
 
-                <span style="color: red;">
-
-
-                </span>
+                @error('userimg')
+                <span style="color: red;">{{ $message }}</span>
+                @enderror
             </div>
 
             <div>
@@ -78,12 +69,12 @@
                     <div class="birth">
                         <input class="input" type="date" id="Brithday" name="brithday" />
                         <button type="button" id="btn1" disabled>@lang("content.actors_button")</button>
+
                     </div>
                 </div>
                 <div id="btn_actors">
                 </div>
             </div>
-
 
             <button id="btn">@lang("content.register_button")</button>
 
@@ -92,6 +83,19 @@
     </div>
     <script src="\js\validation.js"></script>
     <script src="\js\API_Ops.js"></script>
+
+</main>
+
+<?php if (session('success')) {
+                echo '<span style="color:green;">' . session('success') . '</span>';
+            } ?>
+
+<button id="btn">Register</button>
+<!--  -->
+</form>
+</div>
+<script src="\js\validation.js"></script>
+<script src="\js\API_Ops.js"></script>
 
 </main>
 
