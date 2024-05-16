@@ -26,7 +26,7 @@
 
             <div>
                 <label for="email">Email</label>
-                <input class="input" type="email" id="email" name="email" value="{{ old('email') }}" />
+                <input class="input" type="email" id="email" name="email" />
                 @error('email')
                 <span style="color: red;">{{ $message }}</span>
                 @enderror
@@ -34,7 +34,7 @@
 
             <div>
                 <label for="userName">Username</label>
-                <input class="input" type="text" id="userName" name="userName" value="{{ old('userName') }}" />
+                <input class="input" type="text" id="userName" name="userName" />
                 @error('userName')
                 <span style="color: red;">{{ $message }}</span>
                 @enderror
